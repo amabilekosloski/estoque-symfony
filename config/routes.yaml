@@ -2,4 +2,9 @@ controllers:
     resource:
         path: ../src/Controller/
         namespace: App\Controller
+        controller: App\Controller\AppController::index
     type: attribute
+
+home:
+  path: /
+  controller: App\Controller\AppController::index

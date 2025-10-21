@@ -42,6 +42,34 @@ class CategoriaController extends AbstractController
 
         $this->categoriaRepository->salvar($categoria);
 
-        return new Response('Categoria cadastrada com sucesso!');
+        $this->addFlash('success', 'Categoria cadastrada com sucesso!');
+        return $this->redirectToRoute('listar_categorias');
+    }
+
+    #[Route('/categorias/{id}', name: 'editar_categoria', methods: ['GET'])]
+    public function editar(Request $request, Categoria $categoria): Response
+    {
+        $nome = $request->query->get('nome');
+
+        if ($nome && strlen($nome) <= 50) {
+            $categoria->setNome($nome);
+            $this->categoriaRepository->salvar($categoria);
+            $this->addFlash('success', 'Categoria atualizada!');
+        } else {
+            $this->addFlash('danger', 'Nome inválido!');
+        }
+
+        return $this->redirectToRoute('listar_categorias');
+    }
+
+
+    #[Route('/categorias/remover/{id}', name: 'remover_categoria', methods: ['GET'])]
+    public function remover(Categoria $categoria): Response
+    {
+        $this->categoriaRepository->remover($categoria);
+
+        $this->addFlash('success', 'Categoria removida com sucesso!');
+
+        return $this->redirectToRoute('listar_categorias');
     }
 }

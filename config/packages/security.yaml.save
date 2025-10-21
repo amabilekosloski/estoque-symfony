@@ -1,12 +1,11 @@
 security:
     password_hashers:
-        App\Entity\Usuario:
-            algorithm: auto
+        Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
 
     providers:
         app_user_provider:
             entity:
-                class: App\Entity\Usuario
+                class: App\Entity\User
                 property: email
 
     firewalls:
@@ -20,8 +19,11 @@ security:
             custom_authenticator: App\Security\LoginFormAuthenticator
             logout:
                 path: app_logout
-                target: app_login
+                target: app
 
     access_control:
         - { path: ^/login, roles: PUBLIC_ACCESS }
-        - { path: ^/, roles: ROLE_USER }
+        - { path: ^/painel, roles: ROLE_USER }
+        - { path: ^/categorias, roles: ROLE_USER }
+        - { path: ^/produtos, roles: ROLE_USER }
+

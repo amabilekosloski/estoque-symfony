@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Cadastrar Produto{% endblock %}
+
+{% block body %}
+<h2>Cadastrar Produto</h2>
+
+{{ form_start(form) }}
+    {{ form_row(form.nome) }}
+    {{ form_row(form.quantidade) }}
+    {{ form_row(form.categoria) }}
+    <button type="submit">Salvar</button>
+{{ form_end(form) }}
+{% endblock %}

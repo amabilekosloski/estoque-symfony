@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Painel{% endblock %}
+
+{% block body %}
+<h2>Bem-vindo ao Painel de Controle</h2>
+<p>Escolha uma das opções no menu acima para gerenciar o sistema de estoque.</p>
+<div class="cards">
+    <a href="{{ path('listar_categorias') }}" class="card">📦 Categorias</a>
+    <a href="{{ path('listar_produtos') }}" class="card">🛒 Produtos</a>
+</div>
+{% endblock %}

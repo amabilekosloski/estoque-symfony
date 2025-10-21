@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Produtos{% endblock %}
+
+{% block body %}
+<h1>Produtos</h1>
+
+{% include 'mensagens.html.twig' %}
+
+<a href="{{ path('cadastrar_produto') }}" class="btn btn-primary">Cadastrar Produto</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Quantidade</th>
+            <th>Categoria</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for produto in produtos %}
+            <tr>
+                <td>{{ produto.id }}</td>
+                <td>{{ produto.nome }}</td>
+                <td>{{ produto.quantidade }}</td>
+                <td>{{ produto.categoria.nome }}</td>
+                <td>
+                    <a href="{{ path('mostrar_produto', {'id': produto.id}) }}" class="btn btn-info btn-sm">Ver</a>
+                    <a href="{{ path('editar_produto', {'id': produto.id}) }}" class="btn btn-warning btn-sm">Editar</a>
+                    <form method="post" action="{{ path('remover_produto', {'id': produto.id}) }}" style="display:inline-block">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ produto.id) }}">
+                        <button class="btn btn-danger btn-sm">Deletar</button>
+                    </form>
+                    <form method="post" action="{{ path('adicionar_estoque', {'id': produto.id}) }}" style="display:inline-block">
+                        <button class="btn btn-success btn-sm">+1 Estoque</button>
+                    </form>
+                    <form method="post" action="{{ path('vender_produto', {'id': produto.id}) }}" style="display:inline-block">
+                        <button class="btn btn-secondary btn-sm">- 1 Estoque</button>
+                    </form>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">Nenhum produto cadastrado.</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

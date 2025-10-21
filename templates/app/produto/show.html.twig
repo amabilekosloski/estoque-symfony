@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Produto {{ produto.nome }}{% endblock %}
+
+{% block body %}
+<h1>Produto #{{ produto.id }}</h1>
+
+{% include 'mensagens.html.twig' %}
+
+<table class="table">
+    <tr>
+        <th>ID</th>
+        <td>{{ produto.id }}</td>
+    </tr>
+    <tr>
+        <th>Nome</th>
+        <td>{{ produto.nome }}</td>
+    </tr>
+    <tr>
+        <th>Quantidade</th>
+        <td>{{ produto.quantidade }}</td>
+    </tr>
+    <tr>
+        <th>Categoria</th>
+        <td>{{ produto.categoria.nome }}</td>
+    </tr>
+</table>
+
+<a href="{{ path('listar_produtos') }}" class="btn btn-primary">Voltar à lista</a>
+<a href="{{ path('editar_produto', {'id': produto.id}) }}" class="btn btn-warning">Editar</a>
+<form method="post" action="{{ path('remover_produto', {'id': produto.id}) }}" style="display:inline-block">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ produto.id) }}">
+    <button class="btn btn-danger">Deletar </button>
+</form>
+<form method="post" action="{{ path('adicionar_estoque', {'id': produto.id}) }}" style="display:inline-block">
+    <button class="btn btn-success">+1 Estoque</button>
+</form>
+<form method="post" action="{{ path('vender_produto', {'id': produto.id}) }}" style="display:inline-block">
+    <button class="btn btn-secondary">- 1 Estoque</button>
+</form>
+
+{% endblock %}

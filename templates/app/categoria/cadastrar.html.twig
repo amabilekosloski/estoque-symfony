@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Cadastrar Categoria{% endblock %}
+
+{% block body %}
+<h2>Cadastrar Categoria</h2>
+
+<form method="post" action="{{ path('cadastrar_categoria_salvar') }}">
+    <label for="nome">Nome:</label>
+    <input type="text" name="nome" id="nome" maxlength="50" required>
+    <button type="submit">Salvar</button>
+</form>
+{% endblock %}

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Sistema de Estoque{% endblock %}</title>
+
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+</head>
+
+<body>
+    <header>
+        <h1>🧾 Sistema de Estoque</h1>
+        <nav>
+            <a href="{{ path('app_home') }}">Início</a>
+            <a href="{{ path('listar_produtos') }}">Produtos</a>
+            <a href="{{ path('listar_categorias') }}">Categorias</a>
+            {% if app.user %}
+                <span class="user">👤 {{ app.user.email }}</span>
+                <a href="{{ path('app_logout') }}">Sair</a>
+            {% else %}
+                <a href="{{ path('app_login') }}">Login</a>
+            {% endif %}
+        </nav>
+    </header>
+
+    <main>
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="flash {{ label }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+
+        {% block body %}{% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; {{ "now"|date("Y") }} - Sistema de Estoque Symfony</p>
+    </footer>
+</body>
+</html>

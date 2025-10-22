@@ -25,7 +25,6 @@
     </header>
 
     <main>
-        {# mensagens de feedback (flash) #}
         {% for label, messages in app.flashes %}
             {% for message in messages %}
                 <div class="flash {{ label }}">
